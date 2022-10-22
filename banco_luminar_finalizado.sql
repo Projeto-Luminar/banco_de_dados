@@ -1,8 +1,7 @@
- create DATABASE Luminar;
- 
--- drop database luminar;
+CREATE DATABASE Luminar;
 USE Luminar;
 
+-- CRIANDO AS TABELAS;
 CREATE TABLE empresa(
 	idempresa INT PRIMARY KEY auto_increment,
     nome VARCHAR(45),
@@ -35,9 +34,9 @@ CREATE TABLE usuario(
 	FOREIGN KEY (fkempresa) REFERENCES empresa(idempresa),
 	PRIMARY KEY (idusuario, fkEmpresa)
 ); 
-alter table usuario add constraint chk_tipo check(tipo in('admin', 'func'));
 
-
+ALTER TABLE usuario ADD CONSTRAINT chk_tipo CHECK
+	(tipo in ('admin', 'func'));
 
 
 CREATE TABLE sensor(
@@ -45,7 +44,8 @@ CREATE TABLE sensor(
 	nome_sensor VARCHAR (45)
 
 );
-Create table local(
+
+CREATE TABLE local(
 id_acesso int auto_increment,
 nome_sala varchar(20),
 metros_quadrados int,
@@ -64,7 +64,7 @@ CREATE TABLE registro(
     PRIMARY KEY (idRegistro, fkSensor)
 );
 
--- INSERTS
+-- INSERINDO DADOS NAS TABELAS
 INSERT INTO empresa values
 (NULL, 'C6', 'Banco C6 SA', '31872495000172', 'Joao Victor', '11912345678'),
 (NULL, 'Safra', 'Banco Safra SA', '58160789000128', 'Paulo Silva', '11922345678'),
@@ -105,11 +105,12 @@ INSERT INTO sensor VALUES
 (null, 'qwe-7'),
 (null, 'ksj-3'),
 (null, 'ak-3');
+
 INSERT INTO sensor VALUES
 -- id, nomeSensor, fkAmbiente
 (null, 'qa5-123');
  
-insert into local value
+INSERT INTO local VALUES
 (null,'sala1',9,1,1),
 (null,'sala2',11,1,2),
 (null,'sala3',12,1,3),
@@ -119,10 +120,8 @@ insert into local value
 (null,'sala7',9,2,6),
 (null,'sala8',10,3,6),
 (null,'sala9',11,4,6);
-insert into local value
-(null,'sala1',25,1,16
-);
-
+INSERT INTO local VALUES
+(null,'sala1',25,1,16);
 
 
 INSERT INTO registro VALUES 
@@ -140,22 +139,22 @@ INSERT INTO registro VALUES
 (null, 86.5, '2022-10-02 19:30:00', 3),
 (null, 66.0, '2022-10-02 17:00:00', 3);
 
-select  * from local;
-select * from usuario;
--- select * from usuario_local;
-select * from registro;
-select * from endereco;
-select * from sensor;
-select * from registro;
-select * from empresa;
-select * from local;
+SELECT * FROM  empresa;
+SELECT * FROM  endereco;
+SELECT * FROM  usuario;
+SELECT * FROM  sensor;
+SELECT * FROM  local;
+SELECT * FROM  registro;
+
+
 select * from empresa join usuario on fkempresa = idempresa;
 -- todas empresa com usuario cadastrados
+
 select * from empresa left join usuario on fkempresa = idempresa;
 -- empresas sem usuarios
+
 select * from empresa  left join usuario on fkempresa = idempresa left join  local on idusuario = fk_usuario;
 -- empresas sem usuarios
-
 
 select e.nome, f.nome,f.setor from  empresa as e join usuario as f on idempresa= fkEmpresa where idusuario = 2;
 -- select dos dados texto
@@ -165,12 +164,10 @@ select l.nome_sala from empresa as e join
  local  as l on l.fk_usuario = idusuario where e.nome = 'safra';
  -- salas da empresa
  
- 
  select l.nome_sala from empresa as e join
  usuario on fkempresa = e.idempresa join
  local  as l on l.fk_usuario = idusuario where e.nome = 'sptech' and usuario.nome = 'roger';
  -- sala que o usuario tem acesso
-
  
 select nome_sensor from empresa join 
 usuario on idempresa = fkempresa join 
@@ -178,15 +175,12 @@ local on fk_usuario = idusuario join
 sensor on fk_sensor = idsensor where nome_sala = 'sala1';
 -- quais sensores tem na sala
 
-
 select valor_luminosidade from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
 sensor on fk_sensor = idsensor join registro on fksensor = idsensor
  where nome_sala ='sala1'  ;
  -- dados gerados nos graficos
-
-
 
 select * from empresa join 
 usuario on idempresa = fkempresa join local on fk_usuario = idusuario join sensor on fk_sensor = idsensor;
@@ -212,22 +206,19 @@ sensor on fk_sensor = idsensor join registro on fksensor = idsensor
  -- kpi luminosidade maxima
  
  
- 
- 
 select min(valor_luminosidade) from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
 sensor on fk_sensor = idsensor join registro on fksensor = idsensor
  where nome_sala ='sala1' ;
- -- kpi luminosidade maxima
+ -- kpi luminosidade minima
+ 
  select (valor_luminosidade) from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
 sensor on fk_sensor = idsensor join registro on fksensor = idsensor
  where nome_sala ='sala1' ;
  -- kpi luminosidade maxima
- 
- 
  
   select (valor_luminosidade) from empresa join 
 usuario on idempresa = fkempresa join 
@@ -242,9 +233,8 @@ local on fk_usuario = idusuario join
 sensor on fk_sensor = idsensor join registro on fksensor = idsensor where nome_sala = 'sala1';
 -- media de luminosidade no local
 
-
  select count(valor_luminosidade) from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
 sensor on fk_sensor = idsensor join registro on fksensor = idsensor where nome_sala = 'sala1' and valor_luminosidade > 750 and valor_luminosidade < 500;
--- parametro para contar a qauntidades de urgencias
+-- parametro para contar a quantidade de urgencias
