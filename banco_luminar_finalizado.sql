@@ -13,20 +13,15 @@ CREATE TABLE empresa(
 
 CREATE TABLE endereco(
 	idendereco INT PRIMARY KEY auto_increment,
-    logradouro VARCHAR(45),
     numero INT,
-    complemento VARCHAR(45),
     cep char(8),
-    cidade VARCHAR(20),
-    uf char(2),
     fkempresa INT, FOREIGN KEY (fkempresa) REFERENCES Empresa(idempresa)
 );
 
 CREATE TABLE usuario(
 	idusuario INT auto_increment,
-	cpf VARCHAR (11),
 	nome VARCHAR (45),
-	login VARCHAR (45),
+	email VARCHAR (45),
 	senha VARCHAR (45),
 	setor VARCHAR (45),
     tipo varchar(20),
