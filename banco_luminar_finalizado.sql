@@ -5,9 +5,7 @@ USE Luminar;
 CREATE TABLE empresa(
 	idempresa INT PRIMARY KEY auto_increment,
     nome VARCHAR(45),
-    nome_fantasia VARCHAR(45),
     cnpj VARCHAR(14),
-    responsavel VARCHAR(45),
     telefone VARCHAR(11)
 );
 
@@ -23,7 +21,6 @@ CREATE TABLE usuario(
 	nome VARCHAR (45),
 	email VARCHAR (45),
 	senha VARCHAR (45),
-	setor VARCHAR (45),
     tipo varchar(20),
 	fkempresa INT,
 	FOREIGN KEY (fkempresa) REFERENCES empresa(idempresa),
