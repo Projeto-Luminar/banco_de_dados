@@ -58,6 +58,19 @@ CREATE TABLE registro(
     fkSensor INT, FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor),
     PRIMARY KEY (idRegistro, fkSensor)
 );
+-- criação das tabelas nota e contato
+create table nota(
+idNota int primary key auto_increment,
+nota varchar(45)
+);
+
+create table contato(
+idContato int primary key auto_increment,
+contato char(11),
+email varchar (45),
+nome varchar(45),
+descricao text(100)
+);
 
 -- INSERINDO DADOS NAS TABELAS
 INSERT INTO empresa values
@@ -69,19 +82,19 @@ INSERT INTO empresa values
 (NULL, 'rossi', 'rossi center', '581546590128', 'natalia Silva', '11922345678');
 
 INSERT INTO endereco values
-(null, 'Rua Haddock Lobo', 595,'bloco 3', 01414001, 'São Paulo', 'SP', 3),
-(null, 'Av. Nove de Julho', 3186, 'bloco 4',  01406000, 'São Paulo', 'SP', 1),
-(null, 'Av. Paulista', 2100, 'bloco 1', 01406000, 'São Paulo', 'SP', 2);
+(null, 595, 01414001, 3),
+(null, 3186, 01406000, 1),
+(null, 2100, 01406000, 2);
 
 INSERT INTO usuario VALUES
-(null, '12345678912', 'Hariel Santos', 'hariel@c6bank.com', md5('hariel1234'), 'TI','admin', 1),
-(null, '12345678910', 'Larissa', 'larissa@safra.com', md5('larissa1234'), 'RH','admin', 2),
+(null, 'Hariel Santos', 'hariel@c6bank.com', md5('hariel1234'), 'TI','admin', 1),
+(null, 'Larissa', 'larissa@safra.com', md5('larissa1234'), 'RH','admin', 2),
 
-(null, '12345678920', 'Paulo', 'paulo@sptech.school', md5('paulo1234'), 'TI','func', 3);
+(null, 'Paulo', 'paulo@sptech.school', md5('paulo1234'), 'TI','func', 3);
 INSERT INTO usuario VALUES
-(null, '12356468920', 'roger', 'roger@sptech.school', md5('roger1234'), 'TI','func', 3);
+(null, 'roger', 'roger@sptech.school', md5('roger1234'), 'TI','func', 3);
 INSERT INTO usuario VALUES
-(null, '12354444468', 'marcos', 'marcos@c6.school', md5('roger1234'), 'TI','func', 1);
+(null, 'marcos', 'marcos@c6.school', md5('roger1234'), 'TI','func', 1);
 
 INSERT INTO sensor VALUES
 -- id, nomeSensor, fkAmbiente
@@ -140,7 +153,8 @@ SELECT * FROM  usuario;
 SELECT * FROM  sensor;
 SELECT * FROM  local;
 SELECT * FROM  registro;
-
+SELECT * FROM nota;
+SELECT * FROM contato;
 
 select * from empresa join usuario on fkempresa = idempresa;
 -- todas empresa com usuario cadastrados
