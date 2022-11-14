@@ -71,12 +71,12 @@ descricao text(100)
 
 -- INSERINDO DADOS NAS TABELAS
 INSERT INTO empresa values
-(NULL, 'C6', 'Banco C6 SA', '31872495000172', 'Joao Victor', '11912345678'),
-(NULL, 'Safra', 'Banco Safra SA', '58160789000128', 'Paulo Silva', '11922345678'),
-(NULL, 'SPtech', 'Faculdade de tecnologia bandeirantes', '07165496000100', 'Alessandro Rodrigues', '1135894043');
+(NULL, 'C6', '31872495000172', '11912345678'),
+(NULL, 'Safra', '58160789000128','11922345678'),
+(NULL, 'SPtech', '07165496000100', '1135894043');
 INSERT INTO empresa values
-(NULL, 'atma', 'atma ltda', '31341560172', 'denise', '11912345678'),
-(NULL, 'rossi', 'rossi center', '581546590128', 'natalia Silva', '11922345678');
+(NULL, 'atma', '31341560172', '11912345678'),
+(NULL, 'rossi','581546590128', '11922345678');
 
 INSERT INTO endereco values
 (null, 595, 01414001, 3),
