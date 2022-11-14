@@ -1,18 +1,19 @@
 CREATE DATABASE Luminar;
+DROP DATABASE Luminar;
 USE Luminar;
 
 -- CRIANDO AS TABELAS;
 CREATE TABLE empresa(
 	idempresa INT PRIMARY KEY auto_increment,
     nome VARCHAR(45),
-    cnpj VARCHAR(14),
-    telefone VARCHAR(11)
+    cnpj VARCHAR(15),
+    telefone VARCHAR(13)
 );
 
 CREATE TABLE endereco(
 	idendereco INT PRIMARY KEY auto_increment,
     numero INT,
-    cep char(8),
+    cep char(9),
     fkempresa INT, FOREIGN KEY (fkempresa) REFERENCES Empresa(idempresa)
 );
 
@@ -30,6 +31,10 @@ CREATE TABLE usuario(
 ALTER TABLE usuario ADD CONSTRAINT chk_tipo CHECK
 	(tipo in ('admin', 'func'));
 
+-- esses selects são apenas para verificar se a api gravou os dados corretamente
+SELECT * FROM usuario;
+SELECT * FROM empresa;
+SELECT * FROM endereco;
 
 CREATE TABLE sensor(
 	idSensor INT PRIMARY KEY auto_increment,
@@ -71,12 +76,12 @@ descricao text(100)
 
 -- INSERINDO DADOS NAS TABELAS
 INSERT INTO empresa values
-(NULL, 'C6', '31872495000172', '11912345678'),
-(NULL, 'Safra', '58160789000128','11922345678'),
-(NULL, 'SPtech', '07165496000100', '1135894043');
+(NULL, 'C6', 'Banco C6 SA', '31872495000172', 'Joao Victor', '11912345678'),
+(NULL, 'Safra', 'Banco Safra SA', '58160789000128', 'Paulo Silva', '11922345678'),
+(NULL, 'SPtech', 'Faculdade de tecnologia bandeirantes', '07165496000100', 'Alessandro Rodrigues', '1135894043');
 INSERT INTO empresa values
-(NULL, 'atma', '31341560172', '11912345678'),
-(NULL, 'rossi','581546590128', '11922345678');
+(NULL, 'atma', 'atma ltda', '31341560172', 'denise', '11912345678'),
+(NULL, 'rossi', 'rossi center', '581546590128', 'natalia Silva', '11922345678');
 
 INSERT INTO endereco values
 (null, 595, 01414001, 3),
