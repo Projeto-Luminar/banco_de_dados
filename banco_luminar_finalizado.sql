@@ -1,5 +1,5 @@
 CREATE DATABASE Luminar;
-DROP DATABASE Luminar;
+-- DROP DATABASE Luminar;
 USE Luminar;
 
 -- CRIANDO AS TABELAS;
@@ -55,7 +55,10 @@ primary key(id_acesso,fk_usuario,fk_sensor)
 
 CREATE TABLE registro(
 	idRegistro INT auto_increment,
-    valor_luminosidade DECIMAL(10,2),
+    luminosidade1 DECIMAL(10,2),
+    luminosidade2 DECIMAL(10,2),
+    luminosidade3 DECIMAL(10,2),
+    luminosidade4 DECIMAL(10,2),
     data_hora DATETIME,
     fkSensor INT, FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor),
     PRIMARY KEY (idRegistro, fkSensor)
