@@ -63,7 +63,7 @@ CREATE TABLE registro(
     fkSensor INT, FOREIGN KEY (fkSensor) REFERENCES sensor(idSensor),
     PRIMARY KEY (idRegistro, fkSensor)
 );
--- criação das tabelas nota e contato
+-- criação das tabelas nota e contato 
 create table nota(
 idNota int primary key auto_increment,
 nota varchar(45)
