@@ -53,6 +53,7 @@ fk_sensor int, foreign key (fk_sensor) references sensor(idsensor),
 primary key(id_acesso,fk_usuario,fk_sensor)
  );
 
+
 CREATE TABLE registro(
 	idRegistro INT auto_increment,
     luminosidade1 DECIMAL(10,2),
@@ -79,12 +80,11 @@ descricao text(100)
 
 -- INSERINDO DADOS NAS TABELAS
 INSERT INTO empresa values
-(NULL, 'C6', 'Banco C6 SA', '31872495000172', 'Joao Victor', '11912345678'),
-(NULL, 'Safra', 'Banco Safra SA', '58160789000128', 'Paulo Silva', '11922345678'),
-(NULL, 'SPtech', 'Faculdade de tecnologia bandeirantes', '07165496000100', 'Alessandro Rodrigues', '1135894043');
-INSERT INTO empresa values
-(NULL, 'atma', 'atma ltda', '31341560172', 'denise', '11912345678'),
-(NULL, 'rossi', 'rossi center', '581546590128', 'natalia Silva', '11922345678');
+(NULL, 'Banco C6 SA', '31872495000172', '11912345678'),
+(NULL, 'Banco Safra SA', '58160789000128', '11922345678'),
+(NULL, 'Faculdade de tecnologia bandeirantes', '07165496000100', '1135894043'),
+(NULL, 'atma ltda', '31341560172', '11912345678'),
+(NULL, 'rossi center', '581546590128', '11922345678');
 
 INSERT INTO endereco values
 (null, 595, 01414001, 3),
@@ -92,14 +92,12 @@ INSERT INTO endereco values
 (null, 2100, 01406000, 2);
 
 INSERT INTO usuario VALUES
-(null, 'Hariel Santos', 'hariel@c6bank.com', md5('hariel1234'), 'TI','admin', 1),
-(null, 'Larissa', 'larissa@safra.com', md5('larissa1234'), 'RH','admin', 2),
 
-(null, 'Paulo', 'paulo@sptech.school', md5('paulo1234'), 'TI','func', 3);
-INSERT INTO usuario VALUES
-(null, 'roger', 'roger@sptech.school', md5('roger1234'), 'TI','func', 3);
-INSERT INTO usuario VALUES
-(null, 'marcos', 'marcos@c6.school', md5('roger1234'), 'TI','func', 1);
+(null, 'Hariel Santos', 'hariel@c6bank.com', 'hariel','admin', 1),
+(null, 'Larissa', 'larissa@safra.com', 'larissa', 'admin', 2),
+(null, 'Paulo', 'paulo@sptech.school', 'paulo','func', 3),
+(null, 'roger', 'roger@sptech.school', 'roger','func', 3),
+(null, 'marcos', 'marcos@c6.school', 'marcos','func', 1);
 
 INSERT INTO sensor VALUES
 -- id, nomeSensor, fkAmbiente
@@ -117,10 +115,7 @@ INSERT INTO sensor VALUES
 (null, '564-3'),
 (null, 'qwe-7'),
 (null, 'ksj-3'),
-(null, 'ak-3');
-
-INSERT INTO sensor VALUES
--- id, nomeSensor, fkAmbiente
+(null, 'ak-3'),
 (null, 'qa5-123');
  
 INSERT INTO local VALUES
@@ -132,25 +127,24 @@ INSERT INTO local VALUES
 (null,'sala6',8,2,3),
 (null,'sala7',9,2,6),
 (null,'sala8',10,3,6),
-(null,'sala9',11,4,6);
-INSERT INTO local VALUES
+(null,'sala9',11,4,6),
 (null,'sala1',25,1,16);
 
 
 INSERT INTO registro VALUES 
 -- id, valorLuminosidade, data_hora, fkSensor
-(null, 450.7, '2022-10-02 12:00:00', 1),
-(null, 330.5, '2022-10-02 12:30:00', 2),
-(null, 85.0, '2022-10-02 13:54:00', 4),
-(null,666.7, '2022-10-02 12:50:00', 5),
-(null, 3050.5, '2022-10-02 12:40:00', 7),
-(null, 54.0, '2022-10-02 13:02:00', 3),
-(null, 455.7, '2022-10-02 13:08:00', 1),
-(null, 555.5, '2022-10-02 11:30:00', 2),
-(null, 750.0, '2022-10-02 03:20:00', 3),
-(null, 547.7, '2022-10-02 16:00:00', 1),
-(null, 86.5, '2022-10-02 19:30:00', 3),
-(null, 66.0, '2022-10-02 17:00:00', 3);
+(null, 450.7, 500.6, 500.6, 600.6, '2022-10-02 12:00:00', 1),
+(null, 330.5, 550.6, 500.6, 600.6, '2022-10-02 12:30:00', 2),
+(null, 85.0, 550.6, 500.6, 300.6, '2022-10-02 13:54:00', 4),
+(null,666.7, 500.6, 500.6, 300.6, '2022-10-02 12:50:00', 5),
+(null, 3050.5, 500.6, 500.6, 300.6, '2022-10-02 12:40:00', 7),
+(null, 54.0, 500.6, 500.6, 400.6, '2022-10-02 13:02:00', 3),
+(null, 455.7, 500.6, 700.6, 500.6, '2022-10-02 13:08:00', 1),
+(null, 555.5, 500.6, 600.6, 600.6, '2022-10-02 11:30:00', 2),
+(null, 750.0, 500.6, 500.6, 500.6, '2022-10-02 03:20:00', 3),
+(null, 547.7, 500.6, 500.6, 500.6, '2022-10-02 16:00:00', 1),
+(null, 86.5, 500.6, 500.6, 500.6, '2022-10-02 19:30:00', 3),
+(null, 66.0, 500.6, 500.6, 500.6, '2022-10-02 17:00:00', 3);
 
 SELECT * FROM  empresa;
 SELECT * FROM  endereco;
@@ -189,7 +183,7 @@ local on fk_usuario = idusuario join
 sensor on fk_sensor = idsensor where nome_sala = 'sala1';
 -- quais sensores tem na sala
 
-select valor_luminosidade from empresa join 
+select luminosidade1 from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
 sensor on fk_sensor = idsensor join registro on fksensor = idsensor
@@ -204,7 +198,7 @@ usuario on idempresa = fkempresa join local on fk_usuario = idusuario join senso
 -- ordenados pelo idusuario
 
 
--- select valor_luminosidade from registro r
+-- select luminosidade1 from registro r
  -- join sensor s on s.idsensor = r.fkSensor
 -- join local l on l.idlocal = s.fklocal_sensor 
 -- join usuario_local u on u.fk_local = l.idlocal ;
@@ -212,7 +206,7 @@ usuario on idempresa = fkempresa join local on fk_usuario = idusuario join senso
 
 select nome_sensor from registro join sensor on idsensor = fkSensor;
 -- todos sensores no banco
-select max(valor_luminosidade) from empresa join 
+select max(luminosidade2) from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
 sensor on fk_sensor = idsensor join registro on fksensor = idsensor
@@ -220,35 +214,35 @@ sensor on fk_sensor = idsensor join registro on fksensor = idsensor
  -- kpi luminosidade maxima
  
  
-select min(valor_luminosidade) from empresa join 
+select min(luminosidade1) from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
 sensor on fk_sensor = idsensor join registro on fksensor = idsensor
  where nome_sala ='sala1' ;
  -- kpi luminosidade minima
  
- select (valor_luminosidade) from empresa join 
+ select (luminosidade2) from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
 sensor on fk_sensor = idsensor join registro on fksensor = idsensor
  where nome_sala ='sala1' ;
  -- kpi luminosidade maxima
  
-  select (valor_luminosidade) from empresa join 
+  select (luminosidade3) from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
-sensor on fk_sensor = idsensor join registro on fksensor = idsensor where nome_sala = 'sala1' and valor_luminosidade
+sensor on fk_sensor = idsensor join registro on fksensor = idsensor where nome_sala = 'sala1' and luminosidade3
 order by data_hora desc limit 1 ;
 -- kpi de ultima luminosidade registrada na sala
 
- select round(avg(valor_luminosidade)) from empresa join 
+ select round(avg(luminosidade2)) from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
 sensor on fk_sensor = idsensor join registro on fksensor = idsensor where nome_sala = 'sala1';
 -- media de luminosidade no local
 
- select count(valor_luminosidade) from empresa join 
+ select count(luminosidade1) from empresa join 
 usuario on idempresa = fkempresa join 
 local on fk_usuario = idusuario join 
-sensor on fk_sensor = idsensor join registro on fksensor = idsensor where nome_sala = 'sala1' and valor_luminosidade > 750 and valor_luminosidade < 500;
+sensor on fk_sensor = idsensor join registro on fksensor = idsensor where nome_sala = 'sala1' and luminosidade1 > 750 and luminosidade1 < 500;
 -- parametro para contar a quantidade de urgencias
